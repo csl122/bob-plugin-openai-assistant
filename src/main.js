@@ -1,4 +1,4 @@
-var { historyFileName, readFile, writeFile } = require("./file");
+var { historyFileName, readFile, writeFile, newFile, getFilePath } = require("./file");
 var lang = require("./lang.js");
 
 function supportLanguages() {
@@ -7,23 +7,21 @@ function supportLanguages() {
 
 
 function translate(query, completion) {
-    
-    // if query.text starts with "#", then clear history
+    const filePath = getFilePath(historyFileName());
+    // if query.text starts with "#", then create a history file and prompt the user
     if (query.text.startsWith("#")) {
-        deleteFile();
+        let fn = newFile();
         completion({
             result: {
                 from: query.detectFrom,
                 to: query.detectTo,
-                toParagraphs: "History cleared.",
+                toParagraphs: `New history file created in ~/Library/Containers/com.hezongyidev.Bob/Data/Documents/InstalledPlugin/xyz.csl122.openai.assistant/openai_ass_history/${fn}`.split("\n"),
             },
         });
         return;
     }
 
-    // read history
-    let ass_history, his_available = readFile(historyFileName);
-    let msgs
+
 
     const ChatGPTModels = [
         "gpt-3.5-turbo",
@@ -48,9 +46,13 @@ function translate(query, completion) {
     else {
         prompt = `${prompt} Then only give very concise explanation within no more than three sentences.`;
     }
-    prompt = `${prompt} Please answer in ${lang.langMap.get(query.detectTo) || query.detectTo}.`;
 
-    
+    // array of chatgpt msgs in the form of [{role: "user", content: "text"}]
+    let msgs
+
+    // prompt = `${prompt} Answer in ${lang.langMap.get(query.detectTo) || query.detectTo}.`;
+
+    // http request body
     const body = {
         model: $option.model,
         temperature: 0,
@@ -62,13 +64,24 @@ function translate(query, completion) {
 
     const isChatGPTModel = ChatGPTModels.indexOf($option.model) > -1;
     if (isChatGPTModel) {
-        if (his_available) {
-            msgs = ass_history.concat({ role: "user", content: query.text });
+        const filePath = getFilePath(historyFileName());
+        // check the content of the file, whether it is "[]" or not
+        // if it is "[]", then it is a new file, and we should add system prompt
+        let exists = false;
+        if ($file.exists(filePath)){
+            content = $file.read(filePath).toUTF8();
+            exists = content !== "[]";
+        }
+
+        // define the user's text with a language prompt to define the language of the response
+        let user_text = `${query.text}\nAnswer in ${lang.langMap.get(query.detectTo) || query.detectTo}.` 
+        if (exists) {
+            msgs = readFile(historyFileName()).concat({ role: "user", content: user_text });
         }
         else {
             msgs = [
                 { role: "system", content: prompt },
-                { role: "user", content: query.text },
+                { role: "user", content: user_text },
                 ];
         }
         body.messages = msgs
@@ -119,7 +132,7 @@ function translate(query, completion) {
 
             // save localStorage
             msgs.push({ role: "assistant", content: choices[0].message.content});
-            writeFile({ value: msgs, fileName: historyFileName });
+            writeFile({ value: msgs, fileName: historyFileName() });
 
             completion({
                 result: {
