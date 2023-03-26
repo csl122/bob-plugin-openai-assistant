@@ -3,7 +3,7 @@ OpenAI Polisher Bob Plugin
 
 # 简介
 
-在Bob中直接向ChatGPT进行一些快速提问! 不用再繁琐地打开浏览器了!!
+在Bob中直接向ChatGPT进行一些快速提问! 不用再繁琐地打开浏览器了!! 一些简单的疑惑可以直接在Bob中解决!
 
 项目Fork并修改自[yetone/bob-plugin-openai-polisher](https://github.com/yetone/bob-plugin-openai-polisher). 感谢!
 <!-- # 使用截图
