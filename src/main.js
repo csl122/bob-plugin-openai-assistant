@@ -5,58 +5,51 @@ function supportLanguages() {
 }
 
 function translate(query, completion) {
-    const ChatGPTModels = ["gpt-3.5-turbo", "gpt-3.5-turbo-0301"];
+     // set localStorage if not exist
+     if (!localStorage.getItem("assistant_history")) {
+        localStorage.setItem("assistant_history", "");
+    }
+    // load localStorage
+    ass_history = localStorage.getItem("assistant_history");
+    // if query.text starts with "#", then clear localStorage
+    if (ass_history.startsWith("#")) {
+        localStorage.setItem("assistant_history", "");
+        ass_history = "";
+        completion({
+            result: {
+                from: query.detectFrom,
+                to: query.detectTo,
+                toParagraphs: "History cleared.",
+            },
+        });
+    }
+
+    const ChatGPTModels = [
+        "gpt-3.5-turbo",
+        "gpt-3.5-turbo-0301",
+        "gpt-4",
+        "gpt-4-0314",
+        "gpt-4-32k",
+        "gpt-4-32k-0314"
+    ]; // Model names that use the ChatGPT API, gpt-4 requires special access approval
     const api_keys = $option.api_keys.split(",").map((key) => key.trim());
     const api_key = api_keys[Math.floor(Math.random() * api_keys.length)];
     const header = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${api_key}`,
     };
-    const detailedPolishingMode = $option.polishing_mode === "detailed";
+    const assistant_mode = $option.assistant_mode === "detailed";
     let prompt =
-        "Revise the following sentences to make them more clear, concise, and coherent";
-    if (detailedPolishingMode) {
-        prompt = `${prompt}. Please note that you need to list the changes and briefly explain why`;
+        "You are a helpful assistant who can answer questions in a natural way by giving the direct answer first.";
+    if (assistant_mode) {
+        prompt = `${prompt}. Then also provide additional information to help the user understand the answer.`;
     }
-    switch (query.detectFrom) {
-        case "zh-Hant":
-            prompt = "潤色此句";
-            if (detailedPolishingMode) {
-                prompt = `${prompt}。請列出修改項目，並簡述修改原因`;
-            }
-            break;
-        case "zh-Hans":
-            prompt = "润色此句";
-            if (detailedPolishingMode) {
-                prompt = `${prompt}。请注意要列出更改以及简要解释一下为什么这么修改`;
-            }
-            break;
-        case "ja":
-            prompt = "この文章を装飾する";
-            if (detailedPolishingMode) {
-                prompt = `${prompt}。変更点をリストアップし、なぜそのように変更したかを簡単に説明することに注意してください`;
-            }
-            break;
-        case "ru":
-            prompt =
-                "Переформулируйте следующие предложения, чтобы они стали более ясными, краткими и связными";
-            if (detailedPolishingMode) {
-                prompt = `${prompt}. Пожалуйста, обратите внимание на необходимость перечисления изменений и краткого объяснения причин таких изменений`;
-            }
-            break;
-        case "wyw":
-            prompt = "润色此句古文";
-            if (detailedPolishingMode) {
-                prompt = `${prompt}。请注意要列出更改以及简要解释一下为什么这么修改`;
-            }
-            break;
-        case "yue":
-            prompt = "潤色呢句粵語";
-            if (detailedPolishingMode) {
-                prompt = `${prompt}。記住要列出修改嘅內容同簡單解釋下點解要做呢啲更改`;
-            }
-            break;
+    else {
+        prompt = `${prompt} Then only give very concise explanation within no more than three sentences.`;
     }
+    prompt = `${prompt} Please answer in ${lang.langMap.get(query.detectTo) || query.detectTo}.`;
+
+    
     const body = {
         model: $option.model,
         temperature: 0,
@@ -65,10 +58,12 @@ function translate(query, completion) {
         frequency_penalty: 1,
         presence_penalty: 1,
     };
+
     const isChatGPTModel = ChatGPTModels.indexOf($option.model) > -1;
     if (isChatGPTModel) {
         body.messages = [
             { role: "system", content: prompt },
+            { role: "assistant", content: ass_history},
             { role: "user", content: query.text },
         ];
     } else {
@@ -115,6 +110,11 @@ function translate(query, completion) {
             } else {
                 targetTxt = choices[0].text.trim();
             }
+
+            // save localStorage
+            ass_history = ass_history + query.text + "\n" + targetTxt + "\n";
+            localStorage.setItem("assistant_history", ass_history);
+
             completion({
                 result: {
                     from: query.detectFrom,
@@ -122,6 +122,7 @@ function translate(query, completion) {
                     toParagraphs: targetTxt.split("\n"),
                 },
             });
+            
         }
     })().catch((err) => {
         completion({

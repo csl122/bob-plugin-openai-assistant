@@ -27,7 +27,7 @@ jobs:
         run: sed -i -e "s/0\.1\.0/${{ steps.get_version.outputs.version-without-v }}/" src/info.json
 
       - name: Package plugin
-        run: mkdir release && zip -j -r release/openai-polisher-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./src/*
+        run: mkdir release && zip -j -r release/openai-assistant-${{ steps.get_version.outputs.version-without-v }}.bobplugin ./src/*
 
       - run: git checkout -- src/
 
@@ -37,10 +37,10 @@ jobs:
       
       - name: Commit files
         run: |
-          git config --global user.name 'yetone'
-          git config --global user.email 'yetoneful@gmail.com'
+          git config --global user.name 'csl122'
+          git config --global user.email 'csl122@hotmail.com'
           git add .
-          git commit -am 'update appcast.json'
+          git commit -am 'chore: update appcast.json'
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -52,8 +52,8 @@ jobs:
         with:
           release_name: ${{ steps.get_version.outputs.version }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release/openai-polisher-${{ steps.get_version.outputs.version-without-v }}.bobplugin
-          asset_name: openai-polisher-${{ steps.get_version.outputs.version-without-v }}.bobplugin
+          file: release/openai-assistant-${{ steps.get_version.outputs.version-without-v }}.bobplugin
+          asset_name: openai-assistant-${{ steps.get_version.outputs.version-without-v }}.bobplugin
           tag: ${{ github.ref }}
           overwrite: true
           body: ${{ steps.tag.outputs.message }}

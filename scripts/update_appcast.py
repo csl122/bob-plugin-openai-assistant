@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 def update_appcast(version, desc):
-    release_file = Path(f'release/openai-polisher-{version}.bobplugin')
+    release_file = Path(f'release/openai-assistant-{version}.bobplugin')
     assert release_file.is_file(), 'Release file not exist'
     with open(release_file, 'rb') as f:
         c = f.read()
@@ -14,7 +14,7 @@ def update_appcast(version, desc):
         'version': version,
         'desc': desc,
         'sha256': file_hash,
-        'url': f'https://github.com/yetone/bob-plugin-openai-polisher/releases/download/v{version}/{release_file.name}',
+        'url': f'https://github.com/csl122/bob-plugin-openai-assistant/releases/download/v{version}/{release_file.name}',
         'minBobVersion': '0.5.0'
     }
     appcast_file = Path('appcast.json')
@@ -22,7 +22,7 @@ def update_appcast(version, desc):
         with open(appcast_file, 'r') as f:
             appcast = json.load(f)
     else:
-        appcast = dict(identifier='yetone.openai.polisher', versions=[])
+        appcast = dict(identifier='csl122.openai.polisher', versions=[])
     appcast['versions'].insert(0, version_info)
     with open(appcast_file, 'w') as f:
         json.dump(appcast, f, ensure_ascii=False, indent=2)

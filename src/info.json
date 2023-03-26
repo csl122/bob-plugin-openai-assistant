@@ -1,13 +1,13 @@
 {
-    "identifier": "xyz.yetone.openai.polisher",
-    "version": "0.1.0",
+    "identifier": "xyz.csl122.openai.assistant",
+    "version": "0.0.1",
     "category": "translate",
-    "name": "OpenAI Polisher",
-    "summary": "GPT powered polisher",
+    "name": "OpenAI Assistant",
+    "summary": "GPT powered assistant for QA",
     "icon": "",
-    "author": "yetone <yetoneful@gmail.com>",
-    "homepage": "https://github.com/yetone/bob-plugin-openai-polisher",
-    "appcast": "https://raw.githubusercontent.com/yetone/bob-plugin-openai-polisher/main/appcast.json",
+    "author": "csl122 <csl122@hotmail.com>",
+    "homepage": "https://github.com/csl122/bob-plugin-openai-assistant",
+    "appcast": "https://raw.githubusercontent.com/csl122/bob-plugin-openai-assistant/main/appcast.json",
     "minBobVersion": "0.5.0",
     "options": [
         {
@@ -38,6 +38,22 @@
                     "value": "gpt-3.5-turbo"
                 },
                 {
+                    "title": "gpt-4",
+                    "value": "gpt-4"
+                },
+                {
+                    "title": "gpt-4-0314",
+                    "value": "gpt-4-0314"
+                },
+                {
+                    "title": "gpt-4-32k",
+                    "value": "gpt-4-32k"
+                },
+                {
+                    "title": "gpt-4-32k-0314",
+                    "value": "gpt-4-32k-0314"
+                },
+                {
                     "title": "text-davinci-003",
                     "value": "text-davinci-003"
                 },
@@ -48,17 +64,17 @@
             ]
         },
         {
-            "identifier": "polishing_mode",
+            "identifier": "assistant_mode",
             "type": "menu",
-            "title": "润色模式",
+            "title": "辅助模式",
             "defaultValue": "simplicity",
             "menuValues": [
                 {
-                    "title": "简洁（只输出润色后的文本）",
+                    "title": "简洁（仅给出简洁解释）",
                     "value": "simplicity"
                 },
                 {
-                    "title": "详尽（附加解释修改原因）",
+                    "title": "详尽（给出详尽的解释）",
                     "value": "detailed"
                 },
             ]
