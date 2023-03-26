@@ -22,7 +22,7 @@ function translate(query, completion) {
     }
 
     // read history
-    ass_history, his_available = readFile(historyFileName);
+    let ass_history, his_available = readFile(historyFileName);
     let msgs
 
     const ChatGPTModels = [
