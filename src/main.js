@@ -1,20 +1,16 @@
+var { historyFileName, readFile, writeFile } = require("./file");
 var lang = require("./lang.js");
 
 function supportLanguages() {
     return lang.supportLanguages.map(([standardLang]) => standardLang);
 }
 
+
 function translate(query, completion) {
-     // set localStorage if not exist
-     if (!localStorage.getItem("assistant_history")) {
-        localStorage.setItem("assistant_history", "");
-    }
-    // load localStorage
-    ass_history = localStorage.getItem("assistant_history");
-    // if query.text starts with "#", then clear localStorage
-    if (ass_history.startsWith("#")) {
-        localStorage.setItem("assistant_history", "");
-        ass_history = "";
+    
+    // if query.text starts with "#", then clear history
+    if (query.text.startsWith("#")) {
+        deleteFile();
         completion({
             result: {
                 from: query.detectFrom,
@@ -22,7 +18,12 @@ function translate(query, completion) {
                 toParagraphs: "History cleared.",
             },
         });
+        return;
     }
+
+    // read history
+    ass_history, his_available = readFile(historyFileName);
+    let msgs
 
     const ChatGPTModels = [
         "gpt-3.5-turbo",
@@ -61,11 +62,16 @@ function translate(query, completion) {
 
     const isChatGPTModel = ChatGPTModels.indexOf($option.model) > -1;
     if (isChatGPTModel) {
-        body.messages = [
-            { role: "system", content: prompt },
-            { role: "assistant", content: ass_history},
-            { role: "user", content: query.text },
-        ];
+        if (his_available) {
+            msgs = ass_history.concat({ role: "user", content: query.text });
+        }
+        else {
+            msgs = [
+                { role: "system", content: prompt },
+                { role: "user", content: query.text },
+                ];
+        }
+        body.messages = msgs
     } else {
         body.prompt = `${prompt}:\n\n${query.text} =>`;
     }
@@ -112,8 +118,8 @@ function translate(query, completion) {
             }
 
             // save localStorage
-            ass_history = ass_history + query.text + "\n" + targetTxt + "\n";
-            localStorage.setItem("assistant_history", ass_history);
+            msgs.push({ role: "assistant", content: choices[0].message.content});
+            writeFile({ value: msgs, fileName: historyFileName });
 
             completion({
                 result: {
