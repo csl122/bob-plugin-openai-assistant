@@ -2,6 +2,13 @@
   "identifier": "csl122.openai.polisher",
   "versions": [
     {
+      "version": "0.1.0",
+      "desc": "Available for creating new history file and viewing the history",
+      "sha256": "8a0a972cc91915d9c77e5e36eea9dc8c64962680f4329f4b3592e3e5f123d037",
+      "url": "https://github.com/csl122/bob-plugin-openai-assistant/releases/download/v0.1.0/openai-assistant-0.1.0.bobplugin",
+      "minBobVersion": "0.5.0"
+    },
+    {
       "version": "0.0.1",
       "desc": "First release",
       "sha256": "c6d2a802038508f2490208452073d2a89fbed77612e7697b550c1329544bae90",
