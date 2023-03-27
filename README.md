@@ -22,8 +22,7 @@ OpenAI Polisher Bob Plugin
 
 1. 安装 [Bob](https://bobtranslate.com/guide/#%E5%AE%89%E8%A3%85) (版本 >= 0.50)
 2. 下载此插件: [openai-assistant.bobplugin](https://github.com/csl122/bob-plugin-openai-assistant/releases)
-3. 双击安装此插件:
-<!-- ![](https://user-images.githubusercontent.com/1206493/222712959-4a4b27e2-b129-408a-a8af-24a3a89df2dd.gif) -->
+3. 双击安装此插件<!-- ![](https://user-images.githubusercontent.com/1206493/222712959-4a4b27e2-b129-408a-a8af-24a3a89df2dd.gif) -->
 4. 去 [OpenAI](https://platform.openai.com/account/api-keys) 获取你的 API KEY
 5. 把 API KEY 填入 Bob 此插件配置界面的 API KEY
  输入框中
