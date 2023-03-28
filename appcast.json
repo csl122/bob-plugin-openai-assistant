@@ -15,26 +15,5 @@
       "url": "https://github.com/csl122/bob-plugin-openai-assistant/releases/download/v0.0.1/openai-assistant-0.0.1.bobplugin",
       "minBobVersion": "0.5.0"
     },
-    {
-      "version": "0.0.1",
-      "desc": "First release.",
-      "sha256": "d9ee1588ff5a2ac351019fe45fcc2761792542ec0ac9d84918bc8a914d6e4579",
-      "url": "https://github.com/csl122/bob-plugin-openai-assistant/releases/download/v0.0.1/openai-assistant-0.0.1.bobplugin",
-      "minBobVersion": "0.5.0"
-    },
-    {
-      "version": "0.0.1",
-      "desc": "First release.",
-      "sha256": "a2d07c569aa710c1e7e7d65311791755933cae67b18f720d8f9a44c04fc9f5fb",
-      "url": "https://github.com/csl122/bob-plugin-openai-assistant/releases/download/v0.0.1/openai-assistant-0.0.1.bobplugin",
-      "minBobVersion": "0.5.0"
-    },
-    {
-      "version": "0.0.1",
-      "desc": "First release.",
-      "sha256": "d53b7fa3fb3c39dc42cae2d31be310e510bef14f8765db72ede66aeafa8aa0b2",
-      "url": "https://github.com/csl122/bob-plugin-openai-assistant/releases/download/v0.0.1/openai-assistant-0.0.1.bobplugin",
-      "minBobVersion": "0.5.0"
-    }
   ]
 }
