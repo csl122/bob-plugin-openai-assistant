@@ -7,7 +7,8 @@ OpenAI Polisher Bob Plugin
 
 支持的功能:
 - 以任何语言向ChatGPT提问, ChatGPT可以用你设定的target语言回答.
-- 历史记录: 拥有记忆功能的ChatGPT, 可以访问你之前的对话记录, 以便于ChatGPT更好地理解你的问题. 可以使用`#`命令来新建对话session, 即新建一个history file. 新建后, 新的对话目录path也将提供.
+- 历史记录: 拥有记忆功能的ChatGPT, 可以访问你之前的对话记录, 以便于ChatGPT更好地理解你的问题. 可以使用`#`命令来新建对话session, 即新建一个history file. 新建后, 新的对话目录path也将提供, 同目录下还将生成一个同名txt文件, 记录了解析后的对话历史记录.
+- 自定义system prompt: 在插件设置页面有一个`Sys prompt`输入框, 你可以在输入框内自定义你需要的system prompt, 来让该插件实现你所需要的功能. 优秀的prompt可以在[awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts)以及[ChatGPT 中文调教指南](https://github.com/PlexPt/awesome-chatgpt-prompts-zh)中获取.
 
 > 项目Fork并修改自[yetone/bob-plugin-openai-polisher](https://github.com/yetone/bob-plugin-openai-polisher) 感谢!
 

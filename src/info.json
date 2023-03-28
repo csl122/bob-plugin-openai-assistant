@@ -68,7 +68,7 @@
             "type": "text",
             "title": "Sys Prompt",
             "defaultValue": "",
-            "desc": "通过自定义 system prompt 获取你想要的Chatbot. 留空使用默认prompt."
+            "desc": "通过自定义 system prompt 获取你想要的Chatbot. 留空使用默认prompt. 注意辅助模式此时不再生效."
         },
         {
             "identifier": "assistant_mode",
