@@ -47,6 +47,10 @@ function translate(query, completion) {
         prompt = `${prompt} Then only give very concise explanation within no more than three sentences.`;
     }
 
+    if ($option.prompt !== "") {
+        prompt = $option.prompt;
+    }
+
     // array of chatgpt msgs in the form of [{role: "user", content: "text"}]
     let msgs
 
