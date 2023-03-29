@@ -2,6 +2,13 @@
   "identifier": "csl122.openai.polisher",
   "versions": [
     {
+      "version": "0.2.0",
+      "desc": "Conversation history now will be extracted to a txt file as well. System prompt can be defined via plugin setting.",
+      "sha256": "f6ea850e598ba32baed9bf47f0d8b2720564d9815d5bb3d6ccd73cf93c6e6630",
+      "url": "https://github.com/csl122/bob-plugin-openai-assistant/releases/download/v0.2.0/openai-assistant-0.2.0.bobplugin",
+      "minBobVersion": "0.5.0"
+    },
+    {
       "version": "0.1.0",
       "desc": "Available for creating new history file and viewing the history",
       "sha256": "8a0a972cc91915d9c77e5e36eea9dc8c64962680f4329f4b3592e3e5f123d037",
