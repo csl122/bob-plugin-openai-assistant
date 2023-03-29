@@ -1,6 +1,6 @@
 {
     "identifier": "xyz.csl122.openai.assistant",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "category": "translate",
     "name": "OpenAI Assistant",
     "summary": "GPT powered assistant for QA",
@@ -83,7 +83,7 @@
                 {
                     "title": "详尽（给出详尽的解释）",
                     "value": "detailed"
-                },
+                }
             ]
         }
     ]
